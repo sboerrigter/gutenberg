@@ -71,7 +71,7 @@ import { limitShift as customLimitShift } from './limit-shift';
  *
  * @type {string}
  */
-const DEFAULT_SLOT_NAME = 'Popover';
+const SLOT_NAME = 'Popover';
 
 // An SVG displaying a triangle facing down, filled with a solid
 // color and bordered in such a way to create an arrow-like effect.
@@ -176,7 +176,8 @@ const UnforwardedPopover = (
 		anchor,
 		expandOnMobile,
 		onFocusOutside,
-		__unstableSlotName,
+		__unstableSlotName = SLOT_NAME,
+		__unstableInline = false,
 		flip = true,
 		resize = true,
 		shift = false,
@@ -321,9 +322,7 @@ const UnforwardedPopover = (
 	].filter(
 		( m: Middleware | undefined ): m is Middleware => m !== undefined
 	);
-
-	const contextSlotName = useContext( slotNameContext );
-	const slotName = __unstableSlotName ?? contextSlotName ?? DEFAULT_SLOT_NAME;
+	const slotName = useContext( slotNameContext ) || __unstableSlotName;
 	const slot = useSlot( slotName );
 
 	let onDialogClose;
@@ -550,12 +549,14 @@ const UnforwardedPopover = (
 		</AnimatedWrapper>
 	);
 
-	if ( slot.ref ) {
-		content = <Fill name={ slotName }>{ content }</Fill>;
-	}
+	if ( ! __unstableInline ) {
+		if ( slot.ref ) {
+			content = <Fill name={ slotName }>{ content }</Fill>;
+		}
 
-	if ( anchorRef || anchorRect || anchor ) {
-		return content;
+		if ( anchorRef || anchorRect || anchor ) {
+			return content;
+		}
 	}
 
 	return <span ref={ anchorRefFallback }>{ content }</span>;
@@ -587,7 +588,7 @@ const UnforwardedPopover = (
 export const Popover = forwardRef( UnforwardedPopover );
 
 function PopoverSlot(
-	{ name = DEFAULT_SLOT_NAME }: { name?: string },
+	{ name = SLOT_NAME }: { name?: string },
 	ref: ForwardedRef< any >
 ) {
 	return (
