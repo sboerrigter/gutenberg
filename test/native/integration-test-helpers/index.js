@@ -19,6 +19,5 @@ export { changeTextOfTextInput } from './text-input-change-text';
 export { triggerBlockListLayout } from './trigger-block-list-layout';
 export { waitForModalVisible } from './wait-for-modal-visible';
 export { waitForStoreResolvers } from './wait-for-store-resolvers';
-export { waitFor } from './wait-for';
 export { withFakeTimers } from './with-fake-timers';
 export { withReanimatedTimer } from './with-reanimated-timer';
