@@ -546,11 +546,32 @@ export default function Image( {
 		// of the image growing larger than the width of the block column.
 		const maxWidthBuffer = clientWidth;
 
+		const imgInner = (
+			<img
+				src={ temporaryURL || url }
+				alt={ defaultedAlt }
+				onError={ () => onImageError() }
+				onLoad={ ( event ) => {
+					setLoadedNaturalSize( {
+						loadedNaturalWidth: event.target?.naturalWidth,
+						loadedNaturalHeight: event.target?.naturalHeight,
+					} );
+				} }
+				ref={ imageRef }
+				className={ borderProps.className }
+				style={ {
+					...borderProps.style,
+					width: 'inherit',
+					height: 'auto',
+				} }
+			/>
+		);
+
 		img = (
 			<ResizableAlignmentControls
-				align={ align }
 				allowedAlignments={ [ 'none', 'wide', 'full' ] }
 				clientId={ clientId }
+				currentAlignment={ align }
 				minWidth={ minWidth }
 				maxWidth={ maxWidthBuffer }
 				minHeight={ minHeight }
@@ -569,7 +590,7 @@ export default function Image( {
 					height: height && ! hasCustomBorder ? height : 'auto',
 				} }
 			>
-				{ img }
+				{ imgInner }
 			</ResizableAlignmentControls>
 		);
 	}
