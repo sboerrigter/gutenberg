@@ -22,7 +22,10 @@ jest.mock( '../listener', () => {
 			super( ...arguments );
 
 			this.constructor._instance = this;
+			this._spy();
+		}
 
+		_spy() {
 			jest.spyOn( this, 'add' );
 			jest.spyOn( this, 'remove' );
 		}
