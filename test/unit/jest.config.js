@@ -20,7 +20,9 @@ module.exports = {
 		'<rootDir>/test/unit/config/is-gutenberg-plugin.js',
 	],
 	setupFilesAfterEnv: [ '<rootDir>/test/unit/config/testing-library.js' ],
-	testURL: 'http://localhost',
+	testEnvironmentOptions: {
+		url: 'http://localhost/',
+	},
 	testPathIgnorePatterns: [
 		'/.git/',
 		'/node_modules/',

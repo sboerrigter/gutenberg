@@ -37,7 +37,9 @@ module.exports = {
 		'<rootDir>/.*/build/',
 		'<rootDir>/.*/build-module/',
 	],
-	testURL: 'http://localhost/',
+	testEnvironmentOptions: {
+		url: 'http://localhost/',
+	},
 	// Add the `Libraries/Utilities` subfolder to the module directories, otherwise haste/jest doesn't find Platform.js on Travis,
 	// and add it first so https://github.com/facebook/react-native/blob/v0.60.0/Libraries/react-native/react-native-implementation.js#L324-L326 doesn't pick up the Platform npm module.
 	moduleDirectories: [
