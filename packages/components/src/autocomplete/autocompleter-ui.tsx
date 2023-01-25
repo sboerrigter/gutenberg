@@ -15,8 +15,10 @@ import { useAnchor } from '@wordpress/rich-text';
 import getDefaultUseItems from './get-default-use-items';
 import Button from '../button';
 import Popover from '../popover';
+import type { AutocompleterUIProps, WPCompleter } from './types';
+import type { MutableRefObject } from 'react';
 
-export function getAutoCompleterUI( autocompleter ) {
+export function getAutoCompleterUI( autocompleter: WPCompleter ) {
 	const useItems = autocompleter.useItems
 		? autocompleter.useItems
 		: getDefaultUseItems( autocompleter );
@@ -33,7 +35,7 @@ export function getAutoCompleterUI( autocompleter ) {
 		reset,
 		value,
 		contentRef,
-	} ) {
+	}: AutocompleterUIProps ) {
 		const [ items ] = useItems( filterValue );
 		const popoverAnchor = useAnchor( {
 			editableContentElement: contentRef.current,
@@ -42,7 +44,10 @@ export function getAutoCompleterUI( autocompleter ) {
 
 		const popoverRef = useRef();
 
-		useOnClickOutside( popoverRef, reset );
+		useOnClickOutside(
+			popoverRef as unknown as MutableRefObject< HTMLElement >,
+			reset
+		);
 
 		useLayoutEffect( () => {
 			onChangeOptions( items );
@@ -51,7 +56,7 @@ export function getAutoCompleterUI( autocompleter ) {
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [ items ] );
 
-		if ( ! items.length > 0 ) {
+		if ( ! ( items.length > 0 ) ) {
 			return null;
 		}
 
@@ -96,11 +101,17 @@ export function getAutoCompleterUI( autocompleter ) {
 	return AutocompleterUI;
 }
 
-function useOnClickOutside( ref, handler ) {
+function useOnClickOutside(
+	ref: MutableRefObject< HTMLElement >,
+	handler: AutocompleterUIProps[ 'reset' ]
+) {
 	useEffect( () => {
-		const listener = ( event ) => {
+		const listener = ( event: MouseEvent | TouchEvent ) => {
 			// Do nothing if clicking ref's element or descendent elements, or if the ref is not referencing an element
-			if ( ! ref.current || ref.current.contains( event.target ) ) {
+			if (
+				! ref.current ||
+				ref.current.contains( event.target as Node )
+			) {
 				return;
 			}
 			handler( event );
