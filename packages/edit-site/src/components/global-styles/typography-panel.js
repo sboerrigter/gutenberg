@@ -120,7 +120,7 @@ function useHasTextColumnsControl( name ) {
 	const supports = useSupportedStyles( name );
 	return (
 		useGlobalSetting( 'typography.textColumns', name )[ 0 ] &&
-		supports.includes( 'textColumns' )
+		supports.includes( 'columnCount' )
 	);
 }
 
@@ -438,6 +438,7 @@ export default function TypographyPanel( {
 						onChange={ setTextColumns }
 						size="__unstable-large"
 						value={ textColumns }
+						initialPosition={ 1 }
 					/>
 				</ToolsPanelItem>
 			) }
