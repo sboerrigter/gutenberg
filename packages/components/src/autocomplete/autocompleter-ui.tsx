@@ -7,6 +7,8 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { useLayoutEffect, useRef, useEffect } from '@wordpress/element';
+// Error expected because `@wordpress/rich-text` is not yet fully typed.
+// @ts-expect-error
 import { useAnchor } from '@wordpress/rich-text';
 
 /**
