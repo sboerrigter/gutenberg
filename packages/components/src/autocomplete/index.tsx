@@ -35,6 +35,7 @@ import { speak } from '@wordpress/a11y';
 import { getAutoCompleterUI } from './autocompleter-ui';
 import { escapeRegExp } from '../utils/strings';
 import type {
+	AutocompleteProps,
 	AutocompleterUIProps,
 	KeyedOption,
 	OptionCompletion,
@@ -42,7 +43,7 @@ import type {
 	WPCompleter,
 } from './types';
 
-function useAutocomplete( {
+export function useAutocomplete( {
 	record,
 	onChange,
 	onReplace,
@@ -362,11 +363,11 @@ function useAutocomplete( {
 	};
 }
 
-export function useAutocompleteProps( options: useAutocompleteProps ) {
+export function useAutocompleteProps( options: UseAutocompleteProps ) {
 	const [ isVisible, setIsVisible ] = useState( false );
 	const ref = useRef< HTMLElement | undefined >();
 	const recordAfterInput = useRef<
-		useAutocompleteProps[ 'record' ] | null
+		UseAutocompleteProps[ 'record' ] | null
 	>();
 	const onKeyDownRef = useRef< ( event: KeyboardEvent ) => void >();
 	const { popover, listBoxId, activeId, onKeyDown } = useAutocomplete( {
@@ -425,7 +426,11 @@ export function useAutocompleteProps( options: useAutocompleteProps ) {
 	};
 }
 
-export default function Autocomplete( { children, isSelected, ...options } ) {
+export default function Autocomplete( {
+	children,
+	isSelected,
+	...options
+}: AutocompleteProps ) {
 	const { popover, ...props } = useAutocomplete( options );
 	return (
 		<>
