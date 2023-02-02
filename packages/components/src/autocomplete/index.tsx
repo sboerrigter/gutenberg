@@ -362,11 +362,13 @@ function useAutocomplete( {
 	};
 }
 
-export function useAutocompleteProps( options ) {
+export function useAutocompleteProps( options: useAutocompleteProps ) {
 	const [ isVisible, setIsVisible ] = useState( false );
-	const ref = useRef();
-	const recordAfterInput = useRef();
-	const onKeyDownRef = useRef();
+	const ref = useRef< HTMLElement | undefined >();
+	const recordAfterInput = useRef<
+		useAutocompleteProps[ 'record' ] | null
+	>();
+	const onKeyDownRef = useRef< ( event: KeyboardEvent ) => void >();
 	const { popover, listBoxId, activeId, onKeyDown } = useAutocomplete( {
 		...options,
 		contentRef: ref,
@@ -390,9 +392,11 @@ export function useAutocompleteProps( options ) {
 
 	const mergedRefs = useMergeRefs( [
 		ref,
-		useRefEffect( ( element ) => {
-			function _onKeyDown( event ) {
-				onKeyDownRef.current( event );
+		useRefEffect( ( element: HTMLElement ) => {
+			function _onKeyDown( event: KeyboardEvent ) {
+				if ( typeof onKeyDownRef.current !== 'undefined' ) {
+					onKeyDownRef.current( event );
+				}
 			}
 			function _onInput() {
 				// Only show auto complete UI if the user is inputting text.
