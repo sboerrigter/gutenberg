@@ -239,6 +239,7 @@ export function TypographyPanel( props ) {
 			) }
 			{ ! isTextColumnsDisabled && (
 				<ToolsPanelItem
+					className="single-column"
 					hasValue={ () => hasTextColumnsValue( props ) }
 					label={ __( 'Text columns' ) }
 					onDeselect={ () => resetTextColumns( props ) }

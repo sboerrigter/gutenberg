@@ -2,12 +2,11 @@
  * WordPress dependencies
  */
 import { hasBlockSupport } from '@wordpress/blocks';
-import { RangeControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
+import TextColumnsControl from '../components/text-columns-control';
 import useSetting from '../components/use-setting';
 import { cleanEmptyObject } from './utils';
 
@@ -16,9 +15,6 @@ import { cleanEmptyObject } from './utils';
  * columns e.g. settings found in `block.json`.
  */
 export const TEXT_COLUMNS_SUPPORT_KEY = 'typography.textColumns';
-
-const MIN_COLUMNS = 1;
-const MAX_COLUMNS = 5;
 
 /**
  * Inspector control containing the text columns option.
@@ -46,14 +42,9 @@ export function TextColumnsEdit( props ) {
 	}
 
 	return (
-		<RangeControl
-			label={ __( 'Text columns' ) }
-			max={ MAX_COLUMNS }
-			min={ MIN_COLUMNS }
-			onChange={ onChange }
-			size="__unstable-large"
+		<TextColumnsControl
 			value={ style?.typography?.textColumns }
-			initialPosition={ 1 }
+			onChange={ onChange }
 		/>
 	);
 }
