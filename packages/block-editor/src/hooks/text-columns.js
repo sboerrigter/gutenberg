@@ -18,7 +18,7 @@ import { cleanEmptyObject } from './utils';
 export const TEXT_COLUMNS_SUPPORT_KEY = 'typography.textColumns';
 
 const MIN_COLUMNS = 1;
-const MAX_COLUMNS = 3;
+const MAX_COLUMNS = 6;
 
 /**
  * Inspector control containing the text columns option.
