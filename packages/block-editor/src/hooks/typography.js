@@ -211,6 +211,19 @@ export function TypographyPanel( props ) {
 					<LetterSpacingEdit { ...props } />
 				</ToolsPanelItem>
 			) }
+			{ ! isTextColumnsDisabled && (
+				<ToolsPanelItem
+					className="single-column"
+					hasValue={ () => hasTextColumnsValue( props ) }
+					label={ __( 'Text columns' ) }
+					onDeselect={ () => resetTextColumns( props ) }
+					isShownByDefault={ defaultControls?.textColumns }
+					resetAllFilter={ createResetAllFilter( 'textColumns' ) }
+					panelId={ clientId }
+				>
+					<TextColumnsEdit { ...props } />
+				</ToolsPanelItem>
+			) }
 			{ ! isTextDecorationDisabled && (
 				<ToolsPanelItem
 					className="single-column"
@@ -235,18 +248,6 @@ export function TypographyPanel( props ) {
 					panelId={ clientId }
 				>
 					<TextTransformEdit { ...props } />
-				</ToolsPanelItem>
-			) }
-			{ ! isTextColumnsDisabled && (
-				<ToolsPanelItem
-					hasValue={ () => hasTextColumnsValue( props ) }
-					label={ __( 'Text columns' ) }
-					onDeselect={ () => resetTextColumns( props ) }
-					isShownByDefault={ defaultControls?.textColumns }
-					resetAllFilter={ createResetAllFilter( 'textColumns' ) }
-					panelId={ clientId }
-				>
-					<TextColumnsEdit { ...props } />
 				</ToolsPanelItem>
 			) }
 		</InspectorControls>

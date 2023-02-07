@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { hasBlockSupport } from '@wordpress/blocks';
-import { RangeControl } from '@wordpress/components';
+import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -18,7 +18,7 @@ import { cleanEmptyObject } from './utils';
 export const TEXT_COLUMNS_SUPPORT_KEY = 'typography.textColumns';
 
 const MIN_COLUMNS = 1;
-const MAX_COLUMNS = 5;
+const MAX_COLUMNS = 3;
 
 /**
  * Inspector control containing the text columns option.
@@ -46,12 +46,13 @@ export function TextColumnsEdit( props ) {
 	}
 
 	return (
-		<RangeControl
+		<NumberControl
 			label={ __( 'Text columns' ) }
 			max={ MAX_COLUMNS }
 			min={ MIN_COLUMNS }
 			onChange={ onChange }
 			size="__unstable-large"
+			spinControls="custom"
 			value={ style?.typography?.textColumns }
 			initialPosition={ 1 }
 		/>

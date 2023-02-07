@@ -12,7 +12,7 @@ import {
 } from '@wordpress/block-editor';
 import {
 	FontSizePicker,
-	RangeControl,
+	__experimentalNumberControl as NumberControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -391,6 +391,26 @@ export default function TypographyPanel( {
 					/>
 				</ToolsPanelItem>
 			) }
+			{ hasTextColumnsControl && (
+				<ToolsPanelItem
+					className="single-column"
+					label={ __( 'Text columns' ) }
+					hasValue={ hasTextColumns }
+					onDeselect={ resetTextColumns }
+					isShownByDefault
+				>
+					<NumberControl
+						label={ __( 'Text columns' ) }
+						max={ MAX_COLUMNS }
+						min={ MIN_COLUMNS }
+						onChange={ setTextColumns }
+						size="__unstable-large"
+						spinControls="custom"
+						value={ textColumns }
+						initialPosition={ 1 }
+					/>
+				</ToolsPanelItem>
+			) }
 			{ hasTextTransformControl && (
 				<ToolsPanelItem
 					label={ __( 'Letter case' ) }
@@ -421,24 +441,6 @@ export default function TypographyPanel( {
 						onChange={ setTextDecoration }
 						size="__unstable-large"
 						__unstableInputWidth="auto"
-					/>
-				</ToolsPanelItem>
-			) }
-			{ hasTextColumnsControl && (
-				<ToolsPanelItem
-					label={ __( 'Text columns' ) }
-					hasValue={ hasTextColumns }
-					onDeselect={ resetTextColumns }
-					isShownByDefault
-				>
-					<RangeControl
-						label={ __( 'Text columns' ) }
-						max={ MAX_COLUMNS }
-						min={ MIN_COLUMNS }
-						onChange={ setTextColumns }
-						size="__unstable-large"
-						value={ textColumns }
-						initialPosition={ 1 }
 					/>
 				</ToolsPanelItem>
 			) }
