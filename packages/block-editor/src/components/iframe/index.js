@@ -10,6 +10,7 @@ import {
 	useState,
 	createPortal,
 	forwardRef,
+	useEffect,
 	useMemo,
 	useReducer,
 	renderToString,
@@ -104,7 +105,7 @@ async function loadScript( head, { id, src } ) {
 function Iframe( {
 	contentRef,
 	children,
-	head,
+	head: headChildren,
 	tabIndex = 0,
 	scale = 1,
 	frameSize = 0,
@@ -119,6 +120,7 @@ function Iframe( {
 	);
 	const [ , forceRender ] = useReducer( () => ( {} ) );
 	const [ iframeDocument, setIframeDocument ] = useState();
+	const [ head, setHead ] = useState();
 	const [ bodyClasses, setBodyClasses ] = useState( [] );
 	const styles = useParsedAssets( assets?.styles );
 	const styleIds = styles.map( ( style ) => style.id );
@@ -142,6 +144,10 @@ function Iframe( {
 			const { readyState, documentElement } = contentDocument;
 			iFrameDocument = contentDocument;
 
+			if ( contentDocument.head ) {
+				setHead( contentDocument.head );
+			}
+
 			if ( readyState !== 'interactive' && readyState !== 'complete' ) {
 				return false;
 			}
@@ -163,7 +169,7 @@ function Iframe( {
 			);
 
 			contentDocument.dir = ownerDocument.dir;
-			documentElement.removeChild( contentDocument.head );
+
 			documentElement.removeChild( contentDocument.body );
 
 			iFrameDocument.addEventListener(
@@ -195,11 +201,14 @@ function Iframe( {
 		};
 	}, [] );
 
-	const headRef = useRefEffect( ( element ) => {
+	useEffect( () => {
+		if ( ! ( head && scripts ) ) {
+			return;
+		}
 		scripts
 			.reduce(
 				( promise, script ) =>
-					promise.then( () => loadScript( element, script ) ),
+					promise.then( () => loadScript( head, script ) ),
 				Promise.resolve()
 			)
 			.finally( () => {
@@ -207,7 +216,8 @@ function Iframe( {
 				// to initialise.
 				forceRender();
 			} );
-	}, [] );
+	}, [ head, scripts ] );
+
 	const disabledRef = useDisabled( { isDisabled: ! readonly } );
 	const bodyRef = useMergeRefs( [
 		contentRef,
@@ -259,20 +269,24 @@ function Iframe( {
 				srcDoc={ srcDoc }
 				title={ __( 'Editor canvas' ) }
 			>
+				{ head &&
+					createPortal(
+						<>
+							{ styleAssets }
+							{ headChildren }
+							<style>
+								{ `html { transition: background 5s; ${
+									frameSize
+										? 'background: #2f2f2f; transition: background 0s;'
+										: ''
+								} }` }
+							</style>
+						</>,
+						head
+					) }
 				{ iframeDocument &&
 					createPortal(
 						<>
-							<head ref={ headRef }>
-								{ styleAssets }
-								{ head }
-								<style>
-									{ `html { transition: background 5s; ${
-										frameSize
-											? 'background: #2f2f2f; transition: background 0s;'
-											: ''
-									} }` }
-								</style>
-							</head>
 							<body
 								ref={ bodyRef }
 								className={ classnames(
