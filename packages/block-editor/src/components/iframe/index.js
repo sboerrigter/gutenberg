@@ -272,7 +272,6 @@ function Iframe( {
 				{ head &&
 					createPortal(
 						<>
-							{ styleAssets }
 							{ headChildren }
 							<style>
 								{ `html { transition: background 5s; ${
