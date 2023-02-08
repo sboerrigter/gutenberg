@@ -199,6 +199,7 @@ function LayoutPanel( { setAttributes, attributes, name: blockName } ) {
 					{ showInheritToggle && (
 						<>
 							<ToggleControl
+								__nextHasNoMarginBottom
 								className="block-editor-hooks__toggle-control"
 								label={ __( 'Inner blocks use content width' ) }
 								checked={

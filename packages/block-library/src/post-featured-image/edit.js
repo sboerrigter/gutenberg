@@ -130,6 +130,7 @@ export default function PostFeaturedImageEdit( {
 			<InspectorControls>
 				<PanelBody title={ __( 'Link settings' ) }>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={
 							postType?.labels.singular_name
 								? sprintf(
@@ -145,6 +146,7 @@ export default function PostFeaturedImageEdit( {
 					{ isLink && (
 						<>
 							<ToggleControl
+								__nextHasNoMarginBottom
 								label={ __( 'Open in new tab' ) }
 								onChange={ ( value ) =>
 									setAttributes( {

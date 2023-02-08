@@ -33,6 +33,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings' ) }>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display avatar' ) }
 						checked={ displayAvatar }
 						onChange={ () =>
@@ -40,6 +41,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display date' ) }
 						checked={ displayDate }
 						onChange={ () =>
@@ -47,6 +49,7 @@ export default function LatestComments( { attributes, setAttributes } ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Display excerpt' ) }
 						checked={ displayExcerpt }
 						onChange={ () =>

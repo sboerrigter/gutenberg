@@ -196,6 +196,7 @@ export function SocialLinksEdit( props ) {
 			<InspectorControls>
 				<PanelBody title={ __( 'Link settings' ) }>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Open links in new tab' ) }
 						checked={ openInNewTab }
 						onChange={ () =>
@@ -203,6 +204,7 @@ export function SocialLinksEdit( props ) {
 						}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={ __( 'Show labels' ) }
 						checked={ showLabels }
 						onChange={ () =>
