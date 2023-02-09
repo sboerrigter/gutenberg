@@ -18,7 +18,6 @@ import getDefaultUseItems from './get-default-use-items';
 import Button from '../button';
 import Popover from '../popover';
 import type { AutocompleterUIProps, WPCompleter } from './types';
-import type { MutableRefObject } from 'react';
 
 export function getAutoCompleterUI( autocompleter: WPCompleter ) {
 	const useItems = autocompleter.useItems
@@ -44,12 +43,9 @@ export function getAutoCompleterUI( autocompleter: WPCompleter ) {
 			value,
 		} );
 
-		const popoverRef = useRef();
+		const popoverRef = useRef< HTMLElement >( null );
 
-		useOnClickOutside(
-			popoverRef as unknown as MutableRefObject< HTMLElement >,
-			reset
-		);
+		useOnClickOutside( popoverRef, reset );
 
 		useLayoutEffect( () => {
 			onChangeOptions( items );
@@ -104,7 +100,7 @@ export function getAutoCompleterUI( autocompleter: WPCompleter ) {
 }
 
 function useOnClickOutside(
-	ref: MutableRefObject< HTMLElement >,
+	ref: React.RefObject< HTMLElement >,
 	handler: AutocompleterUIProps[ 'reset' ]
 ) {
 	useEffect( () => {
