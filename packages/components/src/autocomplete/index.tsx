@@ -397,9 +397,7 @@ export function useAutocompleteProps( options: UseAutocompleteProps ) {
 		ref,
 		useRefEffect( ( element: HTMLElement ) => {
 			function _onKeyDown( event: KeyboardEvent ) {
-				if ( typeof onKeyDownRef.current !== 'undefined' ) {
-					onKeyDownRef.current( event );
-				}
+				onKeyDownRef.current?.( event );
 			}
 			function _onInput() {
 				// Only show auto complete UI if the user is inputting text.
