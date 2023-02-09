@@ -54,7 +54,7 @@ export function getAutoCompleterUI( autocompleter: WPCompleter ) {
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [ items ] );
 
-		if ( ! ( items.length > 0 ) ) {
+		if ( items.length === 0 ) {
 			return null;
 		}
 
