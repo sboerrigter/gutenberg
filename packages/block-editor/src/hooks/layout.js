@@ -47,7 +47,7 @@ export function useLayoutClasses( block = {} ) {
 	}, [] );
 	const globalLayoutSettings = useSetting( 'layout' ) || {};
 
-	const { attributes = {}, name } = block;
+	const { attributes = {}, name = '' } = block;
 	const { layout } = attributes;
 
 	const { default: defaultBlockLayout } =
