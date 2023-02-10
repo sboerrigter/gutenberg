@@ -1297,7 +1297,7 @@ class WP_Theme_JSON_Gutenberg {
 									);
 								} else {
 									// For block rules, use ':root' to ensure the slightly higher specificity overrides the generic rule.
-									$format          = static::ROOT_BLOCK_SELECTOR === $selector ? ':where(%s .%s%s)' : ':root :where(%s.%s%s)';
+									$format          = static::ROOT_BLOCK_SELECTOR === $selector ? ':where(%s .%s) %s' : ':root :where(%s.%s) %s';
 									$layout_selector = sprintf(
 										$format,
 										$selector,
