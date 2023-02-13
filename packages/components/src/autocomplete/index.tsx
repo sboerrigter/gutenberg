@@ -93,9 +93,9 @@ export function useAutocomplete( {
 			function isCompletionObject(
 				completionData: any
 			): completionData is OptionCompletion {
-				return ! (
-					undefined === completionData.action ||
-					undefined === completionData.value
+				return (
+					undefined !== completionData.action &&
+					undefined !== completionData.value
 				);
 			}
 			const action = isCompletionObject( completion )
