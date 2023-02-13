@@ -365,7 +365,7 @@ export function useAutocomplete( {
 
 export function useAutocompleteProps( options: UseAutocompleteProps ) {
 	const [ isVisible, setIsVisible ] = useState( false );
-	const ref = useRef< HTMLElement | undefined >();
+	const ref = useRef< HTMLElement >( null );
 	const recordAfterInput = useRef<
 		UseAutocompleteProps[ 'record' ] | null
 	>();
