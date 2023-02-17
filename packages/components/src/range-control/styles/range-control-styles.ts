@@ -190,6 +190,7 @@ export const ThumbWrapper = styled.span`
 	user-select: none;
 	width: ${ thumbSize }px;
 	border-radius: 50%;
+	z-index: 1;
 
 	${ thumbColor };
 	${ rtl( { marginLeft: -10 } ) };
