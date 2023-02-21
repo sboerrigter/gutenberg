@@ -86,6 +86,5 @@ export default function useSyncPathWithURL() {
 			currentPath.current = path;
 			goTo( path );
 		}
-		goTo( path );
 	}, [ urlParams, goTo ] );
 }
