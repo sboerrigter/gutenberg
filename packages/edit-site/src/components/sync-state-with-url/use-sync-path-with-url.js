@@ -67,13 +67,7 @@ export default function useSyncPathWithURL() {
 		let path = urlParams?.path ?? '/';
 
 		// Compute the navigator path based on the URL params.
-		if (
-			urlParams?.postType &&
-			urlParams?.postId &&
-			// This is just a special case to support old WP versions that perform redirects.
-			// This code should be removed when we minimum WP version becomes 6.2.
-			urlParams?.postId !== 'none'
-		) {
+		if ( urlParams?.postType && urlParams?.postId ) {
 			switch ( urlParams.postType ) {
 				case 'wp_template':
 				case 'wp_template_part':
